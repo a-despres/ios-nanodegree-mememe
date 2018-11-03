@@ -9,7 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var imageView: UIImageView!
+    
     // MARK: - IBActions
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         let pickerController = UIImagePickerController()
@@ -27,12 +30,21 @@ class ViewController: UIViewController {
 // MARK: - Image Picker Delegate w/ Navigation Controller Delegate
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("image selected")
+        
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            if let viewController = picker.presentingViewController as? ViewController {
+                
+                // set image on view controller
+                viewController.imageView.image = image
+                
+                // change content mode of image view so image does not distort
+                viewController.imageView.contentMode = UIView.ContentMode.scaleAspectFit
+            }
+        }
         dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("image selection cancelled")
         dismiss(animated: true, completion: nil)
     }
 }
