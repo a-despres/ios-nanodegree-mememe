@@ -11,12 +11,22 @@ import UIKit
 class ViewController: UIViewController {
     
     // MARK: - IBOutlets
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     
     // MARK: - IBActions
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
+        
+        // choose the appropriate source type based on the button tag (int)
+        // 0 = photo library; 1 = camera
+        if sender.tag == 1 {
+            pickerController.sourceType = .camera
+        } else {
+            pickerController.sourceType = .photoLibrary
+        }
+        
         present(pickerController, animated: true, completion: nil)
     }
     
@@ -24,6 +34,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
 }
 

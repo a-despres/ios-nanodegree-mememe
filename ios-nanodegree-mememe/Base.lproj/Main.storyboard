@@ -26,6 +26,11 @@
                                             <action selector="pickAnImage:" destination="BYZ-38-t0r" id="4n7-Vb-Vy3"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem tag="1" systemItem="camera" id="zDs-tX-7Pe">
+                                        <connections>
+                                            <action selector="pickAnImage:" destination="BYZ-38-t0r" id="cuA-Sy-kxY"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-4s-7pf">
@@ -45,6 +50,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cameraButton" destination="zDs-tX-7Pe" id="LF0-sE-aVO"/>
                         <outlet property="imageView" destination="iEe-4s-7pf" id="xhi-aV-Ao9"/>
                     </connections>
                 </viewController>
