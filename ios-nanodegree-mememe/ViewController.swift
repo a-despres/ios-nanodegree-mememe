@@ -49,6 +49,14 @@ class ViewController: UIViewController {
         }
         
         // format font appearance and alignment
+        let memeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeColor: UIColor.black,
+            NSAttributedString.Key.strokeWidth: -5
+        ]
+        
+        textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = .center
     }
     
