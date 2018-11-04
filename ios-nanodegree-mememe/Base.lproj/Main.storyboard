@@ -36,22 +36,40 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-4s-7pf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                             </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="azi-ox-39l">
+                                <rect key="frame" x="175" y="52" width="25" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-C9-2Uv">
+                                <rect key="frame" x="175" y="561" width="25" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="07L-Fc-zqy"/>
+                            <constraint firstItem="OXk-Be-fdK" firstAttribute="top" secondItem="Fti-C9-2Uv" secondAttribute="bottom" constant="32" id="1HO-wn-DfY"/>
+                            <constraint firstItem="azi-ox-39l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CFB-Sc-ETL"/>
+                            <constraint firstItem="azi-ox-39l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="GQ5-lo-NKz"/>
                             <constraint firstItem="OXk-Be-fdK" firstAttribute="top" secondItem="iEe-4s-7pf" secondAttribute="bottom" id="GXb-UK-ys0"/>
                             <constraint firstItem="OXk-Be-fdK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Rdc-Ns-c1l"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="SrN-Rf-aU4"/>
                             <constraint firstItem="OXk-Be-fdK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oWy-jA-V5L"/>
                             <constraint firstItem="OXk-Be-fdK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="rqc-Wd-3Mj"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="tNc-Oj-zFa"/>
+                            <constraint firstItem="Fti-C9-2Uv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zcC-xq-My1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomTextField" destination="Fti-C9-2Uv" id="ZgA-TZ-lHJ"/>
                         <outlet property="cameraButton" destination="zDs-tX-7Pe" id="LF0-sE-aVO"/>
                         <outlet property="imageView" destination="iEe-4s-7pf" id="xhi-aV-Ao9"/>
+                        <outlet property="topTextField" destination="azi-ox-39l" id="NqT-jG-H98"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

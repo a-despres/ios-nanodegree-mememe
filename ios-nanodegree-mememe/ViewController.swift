@@ -11,8 +11,10 @@ import UIKit
 class ViewController: UIViewController {
     
     // MARK: - IBOutlets
+    @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var topTextField: UITextField!
     
     // MARK: - IBActions
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
@@ -30,10 +32,33 @@ class ViewController: UIViewController {
         present(pickerController, animated: true, completion: nil)
     }
     
+    // MARK: - Configure UI
+    /**
+     Sets the appearance of a UITextField.
+     - parameter textField: The *UITextField* to be configured.
+     - parameter defaultText: The default text displayed in the *UITextField* before editing.
+     - remark: This method sets the delegate of the *UITextField* to *self*.
+     */
+    func formatTextField(_ textField: UITextField, with defaultText: String? = nil) {
+        // set self as delegate
+        textField.delegate = self
+        
+        // set default text
+        if let defaultText = defaultText {
+            textField.text = defaultText
+        }
+        
+        // format font appearance and alignment
+        textField.textAlignment = .center
+    }
+    
     // MARK: View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // format text fields
+        formatTextField(topTextField, with: "TOP")
+        formatTextField(bottomTextField, with: "BOTTOM")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,5 +86,17 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Text Field Delegate
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
