@@ -14,10 +14,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     
     // MARK: - Properties
-    var selectedTextField: UITextField!
+    var memeImage: UIImage!
+    var selectedTextField: UITextField?
     
     // MARK: - IBActions
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
@@ -33,6 +35,12 @@ class ViewController: UIViewController {
         }
         
         present(pickerController, animated: true, completion: nil)
+    }
+    
+    @IBAction func shareMeme(_ sender: UIBarButtonItem) {
+        memeImage = generateMemeImage()
+        let activityController = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
     }
     
     // MARK: - Configure UI
@@ -91,8 +99,10 @@ class ViewController: UIViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
         let keyboardHeight = getKeyboardHeight(notification)
         
-        if selectedTextField.frame.origin.y > keyboardHeight {
-            view.frame.origin.y = -keyboardHeight
+        if let textField = selectedTextField {
+            if textField.frame.origin.y > keyboardHeight {
+                view.frame.origin.y = -keyboardHeight
+            }
         }
     }
     
@@ -108,9 +118,40 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    // MARK: - Meme
+    /**
+     Render the view to an image that can be shared or saved to the device.
+     - returns: An image of the view without navigation or toolbars.
+     */
+    func generateMemeImage() -> UIImage {
+        // hide toolbar and navbar
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setToolbarHidden(true, animated: false)
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // show toolbar and navbar
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setToolbarHidden(false, animated: false)
+        
+        return image
+    }
+    
+    /// Generate and save a Meme object to the device.
+    func saveMeme() {
+        let meme = Meme(bottomText: bottomTextField.text!, topText: topTextField.text!, originalImage: imageView.image!, memeImage: memeImage)
+    }
+    
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // disable share button
+        shareButton.isEnabled = false
         
         // format text fields
         formatTextField(topTextField, with: "TOP")
@@ -134,13 +175,19 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            if let viewController = picker.presentingViewController as? ViewController {
-                
-                // set image on view controller
-                viewController.imageView.image = image
-                
-                // change content mode of image view so image does not distort
-                viewController.imageView.contentMode = UIView.ContentMode.scaleAspectFit
+            if let count = navigationController?.viewControllers.count {
+                if let viewController = navigationController?.viewControllers[count - 1] as? ViewController {
+                    
+                    // set image on view controller
+                    viewController.imageView.image = image
+                    
+                    // change content mode of image view so image does not distort
+                    viewController.imageView.contentMode = UIView.ContentMode.scaleAspectFill
+                    viewController.imageView.clipsToBounds = true
+                    
+                    // enable share button
+                    viewController.shareButton.isEnabled = true
+                }
             }
         }
         dismiss(animated: true, completion: nil)
