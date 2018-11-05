@@ -40,6 +40,17 @@ class ViewController: UIViewController {
     @IBAction func shareMeme(_ sender: UIBarButtonItem) {
         memeImage = generateMemeImage()
         let activityController = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
+        
+        // save meme object after the activity has been shared.
+        activityController.completionWithItemsHandler = {
+            [weak self]
+            (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                return
+            }
+            self?.saveMeme()
+        }
+        
         present(activityController, animated: true, completion: nil)
     }
     
