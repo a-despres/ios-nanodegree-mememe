@@ -26,13 +26,13 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="azi-ox-39l">
-                                <rect key="frame" x="171.5" y="162" width="32" height="17"/>
+                                <rect key="frame" x="19" y="162" width="337.5" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-C9-2Uv">
-                                <rect key="frame" x="155.5" y="488" width="64" height="17"/>
+                                <rect key="frame" x="19" y="488" width="337.5" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -44,8 +44,10 @@
                             <constraint firstItem="azi-ox-39l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CFB-Sc-ETL"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" id="L09-tx-Wgr"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rf4-y7-Y52"/>
+                            <constraint firstItem="azi-ox-39l" firstAttribute="width" secondItem="iEe-4s-7pf" secondAttribute="width" multiplier="0.9" id="Yol-CX-81G"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eUi-0Q-AwA"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="750" id="gAK-0i-7Ze"/>
+                            <constraint firstItem="Fti-C9-2Uv" firstAttribute="width" secondItem="iEe-4s-7pf" secondAttribute="width" multiplier="0.9" id="goF-Am-ui4"/>
                             <constraint firstItem="Fti-C9-2Uv" firstAttribute="bottom" secondItem="iEe-4s-7pf" secondAttribute="bottom" constant="-16" id="m3b-wm-hMk"/>
                             <constraint firstItem="azi-ox-39l" firstAttribute="top" secondItem="iEe-4s-7pf" secondAttribute="top" constant="16" id="qcc-Tr-cyO"/>
                             <constraint firstItem="iEe-4s-7pf" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" id="zFh-W7-7hU"/>
