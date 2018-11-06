@@ -198,7 +198,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                     viewController.imageView.image = image
                     
                     // change content mode of image view so image does not distort
-                    viewController.imageView.contentMode = UIView.ContentMode.scaleAspectFill
+                    viewController.imageView.contentMode = UIView.ContentMode.scaleAspectFit
                     viewController.imageView.clipsToBounds = true
                     
                     // enable share button

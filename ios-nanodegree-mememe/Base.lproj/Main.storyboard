@@ -18,21 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-4s-7pf">
-                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
-                                <color key="backgroundColor" red="0.64313725489999995" green="0.69019607839999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="iEe-4s-7pf" secondAttribute="height" multiplier="1:1" id="40R-wb-aVB"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-4s-7pf">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="azi-ox-39l">
-                                <rect key="frame" x="19" y="162" width="337.5" height="17"/>
+                                <rect key="frame" x="19" y="80" width="337.5" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-C9-2Uv">
-                                <rect key="frame" x="19" y="488" width="337.5" height="17"/>
+                                <rect key="frame" x="19" y="590" width="337.5" height="17"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -40,17 +37,15 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" priority="750" id="9Pv-JJ-F7l"/>
+                            <constraint firstItem="iEe-4s-7pf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0bm-12-VxI"/>
                             <constraint firstItem="azi-ox-39l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CFB-Sc-ETL"/>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="height" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="height" id="L09-tx-Wgr"/>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rf4-y7-Y52"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iEe-4s-7pf" secondAttribute="trailing" id="Cct-uX-aK9"/>
+                            <constraint firstItem="azi-ox-39l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="E9f-U7-vae"/>
+                            <constraint firstItem="iEe-4s-7pf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Nrp-Ni-kbK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iEe-4s-7pf" secondAttribute="bottom" id="VGX-Zi-9um"/>
                             <constraint firstItem="azi-ox-39l" firstAttribute="width" secondItem="iEe-4s-7pf" secondAttribute="width" multiplier="0.9" id="Yol-CX-81G"/>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eUi-0Q-AwA"/>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="750" id="gAK-0i-7Ze"/>
                             <constraint firstItem="Fti-C9-2Uv" firstAttribute="width" secondItem="iEe-4s-7pf" secondAttribute="width" multiplier="0.9" id="goF-Am-ui4"/>
-                            <constraint firstItem="Fti-C9-2Uv" firstAttribute="bottom" secondItem="iEe-4s-7pf" secondAttribute="bottom" constant="-16" id="m3b-wm-hMk"/>
-                            <constraint firstItem="azi-ox-39l" firstAttribute="top" secondItem="iEe-4s-7pf" secondAttribute="top" constant="16" id="qcc-Tr-cyO"/>
-                            <constraint firstItem="iEe-4s-7pf" firstAttribute="width" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="width" id="zFh-W7-7hU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Fti-C9-2Uv" secondAttribute="bottom" constant="16" id="san-ok-tpY"/>
                             <constraint firstItem="Fti-C9-2Uv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zcC-xq-My1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
