@@ -82,6 +82,13 @@ class ViewController: UIViewController {
         textField.textAlignment = .center
     }
     
+    /// Toggle the visibility of the navigation and toolbars on/off.
+    func toggleNavigation() {
+        // set the value to the opposite of the current value
+        navigationController?.setNavigationBarHidden(!(navigationController?.isNavigationBarHidden)!, animated: false)
+        navigationController?.setToolbarHidden(!(navigationController?.isToolbarHidden)!, animated: false)
+    }
+    
     // MARK: - Manage Keyboard and Keyboard Notifications
     /**
      Get the height of the onscreen keyboard.
@@ -136,8 +143,7 @@ class ViewController: UIViewController {
      */
     func generateMemeImage() -> UIImage {
         // hide toolbar and navbar
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.setToolbarHidden(true, animated: false)
+        toggleNavigation()
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -146,8 +152,7 @@ class ViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         // show toolbar and navbar
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        navigationController?.setToolbarHidden(false, animated: false)
+        toggleNavigation()
         
         return image
     }
