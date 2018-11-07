@@ -56,15 +56,39 @@
 		A11502FD218E47D9008E76E3 /* ios-nanodegree-mememe */ = {
 			isa = PBXGroup;
 			children = (
+				A149384621938F1D003D9692 /* Storyboards */,
+				A149384521938EF3003D9692 /* Classes and Structs */,
+				A149384221938EB1003D9692 /* View Controllers */,
 				A11502FE218E47D9008E76E3 /* AppDelegate.swift */,
-				A1150300218E47D9008E76E3 /* EditMemeViewController.swift */,
-				A1150302218E47D9008E76E3 /* Main.storyboard */,
 				A1150305218E47D9008E76E3 /* Assets.xcassets */,
-				A1150307218E47D9008E76E3 /* LaunchScreen.storyboard */,
 				A115030A218E47D9008E76E3 /* Info.plist */,
-				A1597191218FCD2E007BCD3E /* Meme.swift */,
 			);
 			path = "ios-nanodegree-mememe";
+			sourceTree = "<group>";
+		};
+		A149384221938EB1003D9692 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A1150300218E47D9008E76E3 /* EditMemeViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A149384521938EF3003D9692 /* Classes and Structs */ = {
+			isa = PBXGroup;
+			children = (
+				A1597191218FCD2E007BCD3E /* Meme.swift */,
+			);
+			path = "Classes and Structs";
+			sourceTree = "<group>";
+		};
+		A149384621938F1D003D9692 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A1150307218E47D9008E76E3 /* LaunchScreen.storyboard */,
+				A1150302218E47D9008E76E3 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
