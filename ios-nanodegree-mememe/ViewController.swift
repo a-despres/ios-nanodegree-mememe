@@ -1,5 +1,5 @@
 //
-//  CreateMemeViewController.swift
+//  ViewController.swift
 //  ios-nanodegree-mememe
 //
 //  Created by Andrew Despres on 11/3/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateMemeViewController: UIViewController {
+class ViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var bottomTextField: UITextField!
