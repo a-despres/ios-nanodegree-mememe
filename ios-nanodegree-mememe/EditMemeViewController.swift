@@ -170,8 +170,8 @@ class EditMemeViewController: UIViewController {
         shareButton.isEnabled = false
         
         // format text fields
-        formatTextField(topTextField, with: "TOP")
-        formatTextField(bottomTextField, with: "BOTTOM")
+        formatTextField(topTextField, with: PlaceholderText.top)
+        formatTextField(bottomTextField, with: PlaceholderText.bottom)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,6 +183,14 @@ class EditMemeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+}
+
+// MARK: - Placeholder Text Struct
+extension EditMemeViewController {
+    struct PlaceholderText {
+        static let bottom: String = "BOTTOM"
+        static let top: String = "TOP"
     }
 }
 
@@ -218,7 +226,9 @@ extension EditMemeViewController: UIImagePickerControllerDelegate, UINavigationC
 extension EditMemeViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         selectedTextField = textField
-        textField.text = ""
+        if (textField == topTextField && textField.text == PlaceholderText.top) || (textField == bottomTextField && textField.text == PlaceholderText.bottom) {
+            textField.text = ""
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
