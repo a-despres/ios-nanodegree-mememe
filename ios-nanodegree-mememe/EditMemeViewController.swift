@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  EditMemeViewController.swift
 //  ios-nanodegree-mememe
 //
 //  Created by Andrew Despres on 11/3/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class EditMemeViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var bottomTextField: UITextField!
@@ -187,12 +187,12 @@ class ViewController: UIViewController {
 }
 
 // MARK: - Image Picker Delegate w/ Navigation Controller Delegate
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditMemeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             if let count = navigationController?.viewControllers.count {
-                if let viewController = navigationController?.viewControllers[count - 1] as? ViewController {
+                if let viewController = navigationController?.viewControllers[count - 1] as? EditMemeViewController {
                     
                     // set image on view controller
                     viewController.imageView.image = image
@@ -215,7 +215,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 }
 
 // MARK: - Text Field Delegate
-extension ViewController: UITextFieldDelegate {
+extension EditMemeViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         selectedTextField = textField
         textField.text = ""
