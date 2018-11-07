@@ -22,6 +22,10 @@ class EditMemeViewController: UIViewController {
     var selectedTextField: UITextField?
     
     // MARK: - IBActions
+    @IBAction func closeMemeEditor(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
