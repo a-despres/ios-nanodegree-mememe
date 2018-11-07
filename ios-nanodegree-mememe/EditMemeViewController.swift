@@ -159,7 +159,12 @@ class EditMemeViewController: UIViewController {
     
     /// Generate and save a Meme object to the device.
     func saveMeme() {
+        // create the meme
         let meme = Meme(bottomText: bottomTextField.text!, topText: topTextField.text!, originalImage: imageView.image!, memeImage: memeImage)
+        
+        // add it to the memes array in the app delegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     // MARK: - View Controller
