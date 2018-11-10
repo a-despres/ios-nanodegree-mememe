@@ -18,14 +18,19 @@ class EditMemeViewController: UIViewController {
     @IBOutlet weak var topTextField: UITextField!
     
     // MARK: - Properties
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var existingMeme: Meme?
+    var existingMemeIndex: Int?
     var memeImage: UIImage!
     var selectedTextField: UITextField?
     
     // MARK: - IBActions
+    /// Close the Meme Editor and return to the previous View Controller.
     @IBAction func closeMemeEditor(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Pick and image from either the photo library or the device's camera if available.
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -41,6 +46,7 @@ class EditMemeViewController: UIViewController {
         present(pickerController, animated: true, completion: nil)
     }
     
+    /// Open an activity view to allow the user to share the meme.
     @IBAction func shareMeme(_ sender: UIBarButtonItem) {
         memeImage = generateMemeImage()
         let activityController = UIActivityViewController(activityItems: [memeImage], applicationActivities: nil)
@@ -53,6 +59,14 @@ class EditMemeViewController: UIViewController {
                 return
             }
             self?.saveMeme()
+            
+            if self?.existingMeme != nil {
+                self?.dismiss(animated: true) {
+                    NotificationCenter.default.post(name: EditMemeViewController.didFinishEditing, object: nil)
+                }
+            } else {
+                self?.dismiss(animated: true, completion: nil)
+            }
         }
         
         present(activityController, animated: true, completion: nil)
@@ -165,22 +179,36 @@ class EditMemeViewController: UIViewController {
     func saveMeme() {
         // create the meme
         let meme = Meme(bottomText: bottomTextField.text!, topText: topTextField.text!, originalImage: imageView.image!, memeImage: memeImage)
-        
-        // add it to the memes array in the app delegate
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.memes.append(meme)
+
+        // add meme to array
+        if let index = existingMemeIndex {
+            appDelegate.memes.insert(meme, at: index)
+        } else {
+            appDelegate.memes.append(meme)
+        }
     }
     
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // disable share button
-        shareButton.isEnabled = false
+        // set top and bottom label text to placeholder text
+        var topText = PlaceholderText.top
+        var bottomText = PlaceholderText.bottom
+        
+        // if editing an existing meme, replace label text with existing meme text and set image
+        if let meme = existingMeme {
+            topText = meme.topText
+            bottomText = meme.bottomText
+            imageView.image = meme.originalImage
+        } else {
+            //disable share button
+            shareButton.isEnabled = false
+        }
         
         // format text fields
-        formatTextField(topTextField, with: PlaceholderText.top)
-        formatTextField(bottomTextField, with: PlaceholderText.bottom)
+        formatTextField(topTextField, with: topText)
+        formatTextField(bottomTextField, with: bottomText)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -193,6 +221,11 @@ class EditMemeViewController: UIViewController {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
+}
+
+// MARK: - Notifications
+extension EditMemeViewController {
+    static public let didFinishEditing = Notification.Name("MemeMe.DidFinishEditing")
 }
 
 // MARK: - Placeholder Text Struct
