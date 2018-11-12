@@ -8,7 +8,10 @@
 
 import UIKit
 
-class SentMemesCollectionViewController: UIViewController {
+class SentMemesCollectionViewController: UICollectionViewController {
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
     // MARK: - Properties
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -17,19 +20,38 @@ class SentMemesCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let columns: CGFloat = 3.0
+        let margin: CGFloat = 6.0
+        let space: CGFloat = 8.0
+        let dimensions = (view.frame.size.width / columns) - space
+        
+        flowLayout.sectionInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+        flowLayout.minimumInteritemSpacing = space / 2
+        flowLayout.minimumLineSpacing = margin
+        flowLayout.itemSize = CGSize(width: dimensions, height: dimensions)
+    }
 }
 
-extension SentMemesCollectionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+// MARK: - Collection View Controller
+extension SentMemesCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 30
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
+        // round corners
+        cell.layer.cornerRadius = 2.0
+        cell.layer.masksToBounds = true
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected image at \(indexPath)")
     }
 }

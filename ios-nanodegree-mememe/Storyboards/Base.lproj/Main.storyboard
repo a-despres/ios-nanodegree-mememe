@@ -196,7 +196,7 @@
         <!--Sent Memes-->
         <scene sceneID="AD6-11-Xwf">
             <objects>
-                <collectionViewController id="GQc-aB-dmT" sceneMemberID="viewController">
+                <collectionViewController id="GQc-aB-dmT" customClass="SentMemesCollectionViewController" customModule="ios_nanodegree_mememe" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7Cn-eS-pjL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,12 +209,14 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="lBF-70-MPn">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
+                                <color key="backgroundColor" red="0.64313725489999995" green="0.69019607839999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="customSize" width="120" height="120"/>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -230,6 +232,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="flowLayout" destination="DWr-f9-gmR" id="9EG-0V-nmP"/>
                         <segue destination="L3j-jx-MJT" kind="show" identifier="viewMeme" id="E83-IM-idX"/>
                     </connections>
                 </collectionViewController>
@@ -334,7 +337,7 @@
         <image name="arrowRight" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4Cg-EH-rML"/>
+        <segue reference="oKG-9W-ckM"/>
         <segue reference="E83-IM-idX"/>
     </inferredMetricsTieBreakers>
 </document>
