@@ -307,11 +307,11 @@
             </objects>
             <point key="canvasLocation" x="2801" y="-1413"/>
         </scene>
-        <!--Grid-->
+        <!--Navigation Controller-->
         <scene sceneID="82G-ce-i8I">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Km-Qm-fSh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Grid" id="Ogh-Xq-xke"/>
+                    <tabBarItem key="tabBarItem" title="" image="collectionView" id="Ogh-Xq-xke"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oQW-59-PaV">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -326,11 +326,11 @@
             </objects>
             <point key="canvasLocation" x="70" y="-694"/>
         </scene>
-        <!--List-->
+        <!--Navigation Controller-->
         <scene sceneID="7Gi-cG-BYr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6GA-v3-GY6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="Wxg-C7-ZZm"/>
+                    <tabBarItem key="tabBarItem" title="" image="tableView" id="Wxg-C7-ZZm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xlt-vG-XeR">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -348,6 +348,8 @@
     </scenes>
     <resources>
         <image name="arrowRight" width="48" height="48"/>
+        <image name="collectionView" width="48" height="48"/>
+        <image name="tableView" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oKG-9W-ckM"/>
