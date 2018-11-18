@@ -50,12 +50,22 @@ extension SentMemesCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! SentMemesCollectionViewCell
         
-        // round corners
-        cell.layer.cornerRadius = 2.0
-        cell.layer.masksToBounds = true
+        // round corners and border to cell
+        cell.layer.cornerRadius = 4
+        cell.clipsToBounds = true
+        cell.layer.borderColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 0.5).cgColor
+        cell.layer.borderWidth = 1
+        
+        // round corners of the image
+        cell.memeImage.layer.cornerRadius = 2
+        cell.memeImage.clipsToBounds = true
+        
+        // set labels
+        cell.bottomLabel.text = appDelegate.memes[indexPath.row].bottomText
+        cell.topLabel.text = appDelegate.memes[indexPath.row].topText
         
         // set image
-        cell.memeImage.image = appDelegate.memes[indexPath.row].memeImage
+        cell.memeImage.image = appDelegate.memes[indexPath.row].originalImage
         return cell
     }
     

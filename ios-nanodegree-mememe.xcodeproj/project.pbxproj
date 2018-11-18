@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10DF7DD21A106E200A2998B /* MemeMeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DF7DC21A106E200A2998B /* MemeMeNavigationViewController.swift */; };
 		A11502FF218E47D9008E76E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11502FE218E47D9008E76E3 /* AppDelegate.swift */; };
 		A1150301218E47D9008E76E3 /* EditMemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1150300218E47D9008E76E3 /* EditMemeViewController.swift */; };
 		A1150304218E47D9008E76E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1150302218E47D9008E76E3 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10DF7DC21A106E200A2998B /* MemeMeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeMeNavigationViewController.swift; sourceTree = "<group>"; };
 		A11502FB218E47D9008E76E3 /* ios-nanodegree-mememe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-nanodegree-mememe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A11502FE218E47D9008E76E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1150300218E47D9008E76E3 /* EditMemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemeViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				A1150300218E47D9008E76E3 /* EditMemeViewController.swift */,
 				A17CE5F32193A19E00F8F0F8 /* SentMemesTableViewController.swift */,
 				A17CE5F72193BA1300F8F0F8 /* ViewMemeViewController.swift */,
+				A10DF7DC21A106E200A2998B /* MemeMeNavigationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				A17CE5F42193A19E00F8F0F8 /* SentMemesTableViewController.swift in Sources */,
 				A192CAF32197C3EE0069FF36 /* SentMemesCollectionViewCell.swift in Sources */,
 				A1150301218E47D9008E76E3 /* EditMemeViewController.swift in Sources */,
+				A10DF7DD21A106E200A2998B /* MemeMeNavigationViewController.swift in Sources */,
 				A17CE5F62193A1A700F8F0F8 /* SentMemesTableViewCell.swift in Sources */,
 				A11502FF218E47D9008E76E3 /* AppDelegate.swift in Sources */,
 			);

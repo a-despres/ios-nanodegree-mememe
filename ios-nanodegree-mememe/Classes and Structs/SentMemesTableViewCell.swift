@@ -12,6 +12,7 @@ class SentMemesTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
     @IBOutlet weak var bottomText: UILabel!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var memeImage: UIImageView!
     @IBOutlet weak var topText: UILabel!
     

@@ -51,11 +51,13 @@ class ViewMemeViewController: UIViewController {
         super.viewDidLoad()
         
         // add edit button
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editMeme(_:)))
+        let editIcon = UIImage(named: "edit")
+        let editButton = UIBarButtonItem(image: editIcon, style: .plain, target: self, action: #selector(editMeme(_:)))
         navigationItem.rightBarButtonItem = editButton
         
         // add function to back button
-        let backButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(reinsertMeme(_:)))
+        let backArrow = UIImage(named: "backArrow")
+        let backButton = UIBarButtonItem(image: backArrow, style: .plain, target: self, action: #selector(reinsertMeme(_:)))
         navigationItem.leftBarButtonItem = backButton
     }
     
@@ -110,7 +112,7 @@ extension ViewMemeViewController {
 extension ViewMemeViewController {
     @objc func handleEditingNotification(_ notification: Notification) {
         
-        // unubscribe to editing notification
+        // unsubscribe to editing notification
         unsubscribeToEditingNotification()
         
         // show navigation bar
@@ -125,7 +127,7 @@ extension ViewMemeViewController {
             if segue.identifier == "editMeme" {
                 if let editMemeNavController = segue.destination as? UINavigationController {
                     // set title of navgation controller
-                    editMemeNavController.viewControllers[0].title = "Edit Meme"
+                    editMemeNavController.viewControllers[0].title = "EDIT MEME"
     
                     // pass Meme object to destination view controller
                     if let editMemeController = editMemeNavController.viewControllers[0] as? EditMemeViewController {

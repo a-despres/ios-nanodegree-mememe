@@ -44,15 +44,23 @@ extension SentMemesTableViewController {
 // MARK: - Table View Controller
 extension SentMemesTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // hide table if the meme array is empty
-        memeTable.isHidden = appDelegate.memes.count > 0 ? false : true
-        
-        // return the number of table rows
         return appDelegate.memes.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SentMemesTableViewCell
+        
+        // round corners of the image
+        cell.memeImage.layer.cornerRadius = 2
+        cell.memeImage.clipsToBounds = true
+        
+        // round corners of the container view surrounding the image and add a border
+        cell.containerView.layer.cornerRadius = 4
+        cell.containerView.clipsToBounds = true
+        cell.containerView.layer.borderColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 0.5).cgColor
+        cell.containerView.layer.borderWidth = 1
+        
+        // apply values from memes array
         cell.memeImage.image = appDelegate.memes[indexPath.row].originalImage
         cell.topText.text = appDelegate.memes[indexPath.row].topText
         cell.bottomText.text = appDelegate.memes[indexPath.row].bottomText
