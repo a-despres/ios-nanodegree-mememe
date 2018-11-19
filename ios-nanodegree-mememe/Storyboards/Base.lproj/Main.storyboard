@@ -63,7 +63,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="avk-5b-6Bo"/>
-                        <barButtonItem title="Item" image="font" id="4n9-ab-0oM"/>
+                        <barButtonItem title="Item" image="font" id="4n9-ab-0oM">
+                            <connections>
+                                <action selector="chooseFont:" destination="BYZ-38-t0r" id="gG2-tK-Xvt"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="CREATE MEME" id="1zz-9D-lXv">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="kgY-MQ-aNU">

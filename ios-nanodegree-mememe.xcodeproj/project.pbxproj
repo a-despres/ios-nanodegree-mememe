@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A10DF7DD21A106E200A2998B /* MemeMeNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DF7DC21A106E200A2998B /* MemeMeNavigationViewController.swift */; };
+		A10DF7E321A1C3B100A2998B /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A10DF7E221A1C3B100A2998B /* impact.ttf */; };
+		A10DF7E521A1D4C200A2998B /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10DF7E421A1D4C200A2998B /* UITextField.swift */; };
 		A11502FF218E47D9008E76E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11502FE218E47D9008E76E3 /* AppDelegate.swift */; };
 		A1150301218E47D9008E76E3 /* EditMemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1150300218E47D9008E76E3 /* EditMemeViewController.swift */; };
 		A1150304218E47D9008E76E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1150302218E47D9008E76E3 /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		A10DF7DC21A106E200A2998B /* MemeMeNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemeMeNavigationViewController.swift; sourceTree = "<group>"; };
+		A10DF7E221A1C3B100A2998B /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
+		A10DF7E421A1D4C200A2998B /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		A11502FB218E47D9008E76E3 /* ios-nanodegree-mememe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-nanodegree-mememe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A11502FE218E47D9008E76E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1150300218E47D9008E76E3 /* EditMemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemeViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A103B54C21A3717B00D4885F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A10DF7E421A1D4C200A2998B /* UITextField.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A10DF7E121A1C39600A2998B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A10DF7E221A1C3B100A2998B /* impact.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		A11502F2218E47D9008E76E3 = {
 			isa = PBXGroup;
 			children = (
@@ -68,8 +88,10 @@
 		A11502FD218E47D9008E76E3 /* ios-nanodegree-mememe */ = {
 			isa = PBXGroup;
 			children = (
+				A10DF7E121A1C39600A2998B /* Fonts */,
 				A149384621938F1D003D9692 /* Storyboards */,
 				A149384521938EF3003D9692 /* Classes and Structs */,
+				A103B54C21A3717B00D4885F /* Extensions */,
 				A149384221938EB1003D9692 /* View Controllers */,
 				A11502FE218E47D9008E76E3 /* AppDelegate.swift */,
 				A1150305218E47D9008E76E3 /* Assets.xcassets */,
@@ -167,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10DF7E321A1C3B100A2998B /* impact.ttf in Resources */,
 				A1150309218E47D9008E76E3 /* LaunchScreen.storyboard in Resources */,
 				A1150306218E47D9008E76E3 /* Assets.xcassets in Resources */,
 				A1150304218E47D9008E76E3 /* Main.storyboard in Resources */,
@@ -181,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1597192218FCD2E007BCD3E /* Meme.swift in Sources */,
+				A10DF7E521A1D4C200A2998B /* UITextField.swift in Sources */,
 				A192CAF12197C3CA0069FF36 /* SentMemesCollectionViewController.swift in Sources */,
 				A17CE5F82193BA1300F8F0F8 /* ViewMemeViewController.swift in Sources */,
 				A17CE5F42193A19E00F8F0F8 /* SentMemesTableViewController.swift in Sources */,

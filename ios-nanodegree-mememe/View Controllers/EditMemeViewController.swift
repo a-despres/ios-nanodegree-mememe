@@ -30,7 +30,50 @@ class EditMemeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /// Pick and image from either the photo library or the device's camera if available.
+    /// Choose the font for the meme text.
+    @IBAction func chooseFont(_ sender: UIBarButtonItem) {
+        // define action sheet
+        let actionSheet = UIAlertController(title: "Select Font", message: "", preferredStyle: .actionSheet)
+        
+        // add button for Impact
+        let impact = UIAlertAction(title: "Impact", style: .default, handler: {
+            [weak self]
+            action in
+            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .impact)
+            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .impact)
+        })
+        impact.setValue(topTextField.isSelectedFont(.impact), forKey: "checked")
+        actionSheet.addAction(impact)
+        
+        // add button for Avenir
+        let arial = UIAlertAction(title: "Avenir", style: .default, handler: {
+            [weak self]
+            action in
+            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .avenir)
+            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .avenir)
+        })
+        arial.setValue(topTextField.isSelectedFont(.avenir), forKey: "checked")
+        actionSheet.addAction(arial)
+        
+        // add button for Helvetica Neue
+        let helvetica = UIAlertAction(title: "Helvetica Neue", style: .default, handler: {
+            [weak self]
+            action in
+            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .helveticaneue)
+            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .helveticaneue)
+        })
+        helvetica.setValue(topTextField.isSelectedFont(.helveticaneue), forKey: "checked")
+        actionSheet.addAction(helvetica)
+        
+        // add cancel button
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionSheet.addAction(cancel)
+        
+        // show action sheet
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    /// Pick an image from either the photo library or the device's camera if available.
     @IBAction func pickAnImage(_ sender: UIBarButtonItem) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -77,9 +120,10 @@ class EditMemeViewController: UIViewController {
      Sets the appearance of a UITextField.
      - parameter textField: The *UITextField* to be configured.
      - parameter defaultText: The default text displayed in the *UITextField* before editing.
+     - parameter font: The font to use in the *UITextField*.
      - remark: This method sets the delegate of the *UITextField* to *self*.
      */
-    func formatTextField(_ textField: UITextField, with defaultText: String? = nil) {
+    func formatTextField(_ textField: UITextField, with defaultText: String? = nil, using font: UITextField.Font = .impact) {
         // set self as delegate
         textField.delegate = self
         
@@ -90,7 +134,7 @@ class EditMemeViewController: UIViewController {
         
         // format font appearance and alignment
         let memeTextAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedString.Key.font: UIFont(name: font.rawValue, size: 40)!,
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.strokeColor: UIColor.black,
             NSAttributedString.Key.strokeWidth: -5
@@ -178,7 +222,7 @@ class EditMemeViewController: UIViewController {
     /// Generate and save a Meme object to the device.
     func saveMeme() {
         // create the meme
-        let meme = Meme(bottomText: bottomTextField.text!, topText: topTextField.text!, originalImage: imageView.image!, memeImage: memeImage)
+        let meme = Meme(bottomText: bottomTextField.text!, font: topTextField.currentFont(), memeImage: memeImage, originalImage: imageView.image!, topText: topTextField.text!)
 
         // add meme to array
         if let index = existingMemeIndex {
@@ -207,8 +251,13 @@ class EditMemeViewController: UIViewController {
         }
         
         // format text fields
-        formatTextField(topTextField, with: topText)
-        formatTextField(bottomTextField, with: bottomText)
+        if let meme = existingMeme {
+            formatTextField(topTextField, with: topText, using: meme.font)
+            formatTextField(bottomTextField, with: bottomText, using: meme.font)
+        } else {
+            formatTextField(topTextField, with: topText)
+            formatTextField(bottomTextField, with: bottomText)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

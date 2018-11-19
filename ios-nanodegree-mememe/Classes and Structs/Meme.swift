@@ -10,18 +10,10 @@ import Foundation
 import UIKit
 
 struct Meme {
-    
     // MARK: - Properties
-    public var bottomText: String!
-    public var memeImage: UIImage!
-    public var originalImage: UIImage!
-    public var topText: String!
-    
-    // Initilization
-    init(bottomText: String, topText: String, originalImage: UIImage, memeImage: UIImage) {
-        self.bottomText = bottomText
-        self.topText = topText
-        self.originalImage = originalImage
-        self.memeImage = memeImage
-    }
+    public var bottomText: String
+    public var font: UITextField.Font
+    public var memeImage: UIImage
+    public var originalImage: UIImage
+    public var topText: String
 }
