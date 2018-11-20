@@ -32,7 +32,7 @@ extension UITextField {
      - returns: This method returns a boolean value indicating whether a particular font is being used.
      */
     func isSelectedFont(_ font: Font) -> Bool {
-        if self.font == UIFont(name: font.rawValue, size: 40) {
+        if self.font?.fontName == font.rawValue {
             return true
         }
         return false
