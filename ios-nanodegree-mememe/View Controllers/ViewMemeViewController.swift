@@ -85,6 +85,21 @@ class ViewMemeViewController: UIViewController {
         // show tab bar
         tabBarController?.tabBar.isHidden = false
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // change top image constraint depending on device orientation
+        if (navigationController?.isNavigationBarHidden)! {
+            topAlignmentConstraint.constant = ImageContraints.Top.fullscreen
+        } else {
+            if UIDevice.current.orientation.isLandscape {
+                topAlignmentConstraint.constant = ImageContraints.Top.landscape
+            } else {
+                topAlignmentConstraint.constant = ImageContraints.Top.portrait
+            }
+        }
+    }
 }
 
 // MARK: - Gesture Recognition
@@ -94,7 +109,11 @@ extension ViewMemeViewController: UIGestureRecognizerDelegate {
         navigationController?.setNavigationBarHidden(!(navigationController?.isNavigationBarHidden)!, animated: true)
         
         // toggle image constraints
-        topAlignmentConstraint.constant = topAlignmentConstraint.constant == ImageContraints.Top.default ? ImageContraints.Top.fullscreen : ImageContraints.Top.default
+        if UIDevice.current.orientation.isLandscape || UIApplication.shared.statusBarOrientation.isLandscape {
+            topAlignmentConstraint.constant = (topAlignmentConstraint.constant == ImageContraints.Top.landscape || topAlignmentConstraint.constant == ImageContraints.Top.portrait) ? ImageContraints.Top.fullscreen : ImageContraints.Top.landscape
+        } else {
+            topAlignmentConstraint.constant = (topAlignmentConstraint.constant == ImageContraints.Top.landscape || topAlignmentConstraint.constant == ImageContraints.Top.portrait) ? ImageContraints.Top.fullscreen : ImageContraints.Top.portrait
+        }
     }
 }
 
@@ -102,7 +121,8 @@ extension ViewMemeViewController: UIGestureRecognizerDelegate {
 extension ViewMemeViewController {
     struct ImageContraints {
         struct Top {
-            static let `default`: CGFloat = 64
+            static let portrait: CGFloat = 64
+            static let landscape: CGFloat = 32
             static let fullscreen: CGFloat = 0
         }
     }
