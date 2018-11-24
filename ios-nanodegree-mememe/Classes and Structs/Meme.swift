@@ -11,9 +11,11 @@ import UIKit
 
 struct Meme {
     // MARK: - Properties
+    public var bottomPosition: CGFloat
     public var bottomText: String
     public var font: UITextField.Font
     public var memeImage: UIImage
     public var originalImage: UIImage
+    public var topPosition: CGFloat
     public var topText: String
 }

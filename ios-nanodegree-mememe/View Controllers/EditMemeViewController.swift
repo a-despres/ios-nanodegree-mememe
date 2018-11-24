@@ -241,11 +241,29 @@ class EditMemeViewController: UIViewController {
         // hide toolbar and navbar
         toggleNavigation()
         
+        // temporarily hide tools if necessary by setting alpha to zero -- this avoids tweaking animations
+        editingToolPane.alpha = 0.0
+        textPositionToolPane.alpha = 0.0
+        textPositionHandleContainer.alpha = 0.0
+        
+        // temporarily change constraints of text fields to compensate for missing navigation and toolbars
+        bottomTextConstraint.constant += view.layoutMargins.bottom
+        topTextConstraint.constant += view.layoutMargins.top
+        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
+        // restore constraints of text fields
+        bottomTextConstraint.constant -= view.layoutMargins.bottom
+        topTextConstraint.constant -= view.layoutMargins.top
+        
+        // restore tools if necessary by setting alpha to one
+        editingToolPane.alpha = editingToolPane.isHidden ? 0.0 : 1.0 // when this pane is hidden the alpha is supposed to be at zero
+        textPositionToolPane.alpha = 1.0
+        textPositionHandleContainer.alpha = 1.0
         
         // show toolbar and navbar
         toggleNavigation()
@@ -256,7 +274,13 @@ class EditMemeViewController: UIViewController {
     /// Generate and save a Meme object to the device.
     func saveMeme() {
         // create the meme
-        let meme = Meme(bottomText: bottomTextField.text!, font: topTextField.currentFont(), memeImage: memeImage, originalImage: imageView.image!, topText: topTextField.text!)
+        let meme = Meme(bottomPosition: bottomTextConstraint.constant,
+                        bottomText: bottomTextField.text!,
+                        font: topTextField.currentFont(),
+                        memeImage: memeImage,
+                        originalImage: imageView.image!,
+                        topPosition: topTextConstraint.constant,
+                        topText: topTextField.text!)
 
         // add meme to array
         if let index = existingMemeIndex {
@@ -274,11 +298,16 @@ class EditMemeViewController: UIViewController {
         bottomTextField.delegate = self
         topTextField.delegate = self
         
-        // set textField and image values
+        // set textField, constraints, and image values
         if let meme = existingMeme {
+            bottomTextConstraint.constant = meme.bottomPosition
             bottomTextField.setFont(meme.font)
             bottomTextField.text = meme.bottomText
             
+            previousTextPositions.bottom = meme.bottomPosition
+            previousTextPositions.top = meme.topPosition
+            
+            topTextConstraint.constant = meme.topPosition
             topTextField.setFont(meme.font)
             topTextField.text = meme.topText
             
