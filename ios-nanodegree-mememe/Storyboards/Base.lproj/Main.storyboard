@@ -494,7 +494,7 @@
         <!--Meme Me Navigation View Controller-->
         <scene sceneID="tTq-ns-CdP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsWhenVerticallyCompact="YES" id="f4b-gZ-wCv" customClass="MemeMeNavigationViewController" customModule="ios_nanodegree_mememe" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="f4b-gZ-wCv" customClass="MemeMeNavigationViewController" customModule="ios_nanodegree_mememe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KpA-Ri-dh3">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -568,7 +568,7 @@
         <image name="verticalPositioning" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="deu-Iq-emQ"/>
-        <segue reference="aYF-fZ-B0k"/>
+        <segue reference="4Cg-EH-rML"/>
+        <segue reference="E83-IM-idX"/>
     </inferredMetricsTieBreakers>
 </document>
