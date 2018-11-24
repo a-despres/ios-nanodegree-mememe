@@ -11,11 +11,26 @@ import UIKit
 class EditMemeViewController: UIViewController {
     
     // MARK: - IBOutlets
-    @IBOutlet weak var bottomTextField: UITextField!
+    // buttons
     @IBOutlet weak var cameraButton: UIBarButtonItem!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    // editing tools
+    @IBOutlet weak var editingToolPane: UIView!
+    @IBOutlet weak var editingToolVerticalConstraint: NSLayoutConstraint!
+    // image view
+    @IBOutlet weak var imageView: UIImageView!
+    // text fields
+    @IBOutlet weak var bottomTextField: UITextField!
+    @IBOutlet weak var bottomTextConstraint: NSLayoutConstraint!
     @IBOutlet weak var topTextField: UITextField!
+    @IBOutlet weak var topTextConstraint: NSLayoutConstraint!
+    // text position tool
+    @IBOutlet weak var leftTextPositionHandleConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightTextPositionHandleConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightTextPositionHandle: UIImageView!
+    @IBOutlet weak var textPositionHandleContainer: UIView!
+    @IBOutlet weak var textPositionToolPane: UIView!
+    @IBOutlet weak var textPositionToolVerticalConstraint: NSLayoutConstraint!
     
     // MARK: - Properties
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -24,43 +39,71 @@ class EditMemeViewController: UIViewController {
     var memeImage: UIImage!
     var selectedTextField: UITextField?
     
+    // text field positions
+    struct InitialTextPositions {
+        static let bottom: CGFloat = 16.0
+        static let top: CGFloat = 16.0
+    }
+    struct PreviousTextPositions {
+        var bottom: CGFloat = InitialTextPositions.bottom
+        var top: CGFloat = InitialTextPositions.top
+    }
+    var previousTextPositions = PreviousTextPositions()
+    
     // MARK: - IBActions
     /// Close the Meme Editor and return to the previous View Controller.
     @IBAction func closeMemeEditor(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
+    /// Hide the text position tool pane and restore positions of textFields.
+    @IBAction func handleCancelTextPositionTool(_ sender: UIButton) {
+        toggleTextPositionTool()
+        
+        // reset text to previous positions
+        resetTextPositions(toPrevious: true)
+    }
+    
+    /// Hide the text position tool pane, keeping new positions of textFields.
+    @IBAction func handleConfirmTextPositionTool(_ sender: UIButton) {
+        toggleTextPositionTool()
+    }
+    
+    /// Toggle the edit tool pane on/off and hide the text position tool if needed.
+    @IBAction func handleEditingTool(_ sender: UIBarButtonItem) {
+        if !textPositionToolPane.isHidden {
+            resetTextPositions(toPrevious: true)
+            toggleTextPositionTool()
+        }
+        
+        toggleEditingToolsPane()
+    }
+    
     /// Choose the font for the meme text.
-    @IBAction func chooseFont(_ sender: UIBarButtonItem) {
+    @IBAction func handleFontTool(_ sender: UIButton) {
         // define action sheet
         let actionSheet = UIAlertController(title: "Select Font", message: "", preferredStyle: .actionSheet)
         
         // add button for Impact
         let impact = UIAlertAction(title: "Impact", style: .default, handler: {
-            [weak self]
-            action in
-            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .impact)
-            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .impact)
+            [weak self] action in
+            self?.chooseFont(.impact)
         })
         impact.setValue(topTextField.isSelectedFont(.impact), forKey: "checked")
         actionSheet.addAction(impact)
         
         // add button for Avenir
         let arial = UIAlertAction(title: "Avenir", style: .default, handler: {
-            [weak self]
-            action in
-            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .avenir)
-            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .avenir)
+            [weak self] action in
+            self?.chooseFont(.avenir)
         })
         arial.setValue(topTextField.isSelectedFont(.avenir), forKey: "checked")
         actionSheet.addAction(arial)
         
         // add button for Helvetica Neue
         let helvetica = UIAlertAction(title: "Helvetica Neue", style: .default, handler: {
-            [weak self]
-            action in
-            self?.formatTextField((self?.bottomTextField)!, with: self?.bottomTextField.text, using: .helveticaneue)
-            self?.formatTextField((self?.topTextField)!, with: self?.topTextField.text, using: .helveticaneue)
+            [weak self] action in
+            self?.chooseFont(.helveticaneue)
         })
         helvetica.setValue(topTextField.isSelectedFont(.helveticaneue), forKey: "checked")
         actionSheet.addAction(helvetica)
@@ -71,6 +114,25 @@ class EditMemeViewController: UIViewController {
         
         // show action sheet
         present(actionSheet, animated: true, completion: nil)
+    }
+    
+    /// Reset the positions of the textFields.
+    @IBAction func handleResetTextPositionTool(_ sender: UIButton) {
+        resetTextPositions()
+    }
+    
+    /// Reset the font, positions and text of the textFields.
+    @IBAction func handleResetTextTool(_ sender: UIButton) {
+        resetText(withPosition: true)
+    }
+    
+    // Toggle the text position tool on/off and set the previous position values to the current position.
+    @IBAction func handleTextPositionTool(_ sender: UIButton) {
+        toggleTextPositionTool()
+        
+        // set previous positions
+        previousTextPositions.bottom = bottomTextConstraint.constant
+        previousTextPositions.top = topTextConstraint.constant
     }
     
     /// Pick an image from either the photo library or the device's camera if available.
@@ -116,34 +178,6 @@ class EditMemeViewController: UIViewController {
     }
     
     // MARK: - Configure UI
-    /**
-     Sets the appearance of a UITextField.
-     - parameter textField: The *UITextField* to be configured.
-     - parameter defaultText: The default text displayed in the *UITextField* before editing.
-     - parameter font: The font to use in the *UITextField*.
-     - remark: This method sets the delegate of the *UITextField* to *self*.
-     */
-    func formatTextField(_ textField: UITextField, with defaultText: String? = nil, using font: UITextField.Font = .impact) {
-        // set self as delegate
-        textField.delegate = self
-        
-        // set default text
-        if let defaultText = defaultText {
-            textField.text = defaultText
-        }
-        
-        // format font appearance and alignment
-        let memeTextAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: UIFont(name: font.rawValue, size: 40)!,
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.strokeColor: UIColor.black,
-            NSAttributedString.Key.strokeWidth: -5
-        ]
-        
-        textField.defaultTextAttributes = memeTextAttributes
-        textField.textAlignment = .center
-    }
-    
     /// Toggle the visibility of the navigation and toolbars on/off.
     func toggleNavigation() {
         // set the value to the opposite of the current value
@@ -236,28 +270,50 @@ class EditMemeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set top and bottom label text to placeholder text
-        var topText = PlaceholderText.top
-        var bottomText = PlaceholderText.bottom
+        // set textField delegates
+        bottomTextField.delegate = self
+        topTextField.delegate = self
         
-        // if editing an existing meme, replace label text with existing meme text and set image
+        // set textField and image values
         if let meme = existingMeme {
-            topText = meme.topText
-            bottomText = meme.bottomText
+            bottomTextField.setFont(meme.font)
+            bottomTextField.text = meme.bottomText
+            
+            topTextField.setFont(meme.font)
+            topTextField.text = meme.topText
+            
             imageView.image = meme.originalImage
         } else {
-            //disable share button
+            bottomTextField.setFont(.impact)
+            bottomTextField.text = PlaceholderText.bottom
+            
+            topTextField.setFont(.impact)
+            topTextField.text = PlaceholderText.top
+            
             shareButton.isEnabled = false
         }
         
-        // format text fields
-        if let meme = existingMeme {
-            formatTextField(topTextField, with: topText, using: meme.font)
-            formatTextField(bottomTextField, with: bottomText, using: meme.font)
-        } else {
-            formatTextField(topTextField, with: topText)
-            formatTextField(bottomTextField, with: bottomText)
-        }
+        // setup initial UI values for tools panes
+        // hide text positioning handles
+        textPositionHandleContainer.isHidden = true
+        
+        // flip orientation of right handle image
+        let handleScale = (rightTextPositionHandle.image?.scale)!
+        let handleImage = (rightTextPositionHandle.image?.cgImage)!
+        rightTextPositionHandle.image = UIImage(cgImage: handleImage, scale: handleScale, orientation: .upMirrored)
+        
+        // change appearance of editing tools pane
+        editingToolPane.layer.cornerRadius = 8
+        editingToolPane.clipsToBounds = true
+        editingToolPane.isHidden = true
+        editingToolPane.alpha = 0.0
+        editingToolVerticalConstraint.constant = 32
+        
+        // change appearance of positioning tools pane
+        textPositionToolPane.layer.cornerRadius = 8
+        textPositionToolPane.clipsToBounds = true
+        textPositionToolPane.isHidden = true
+        textPositionToolVerticalConstraint.constant = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -269,6 +325,54 @@ class EditMemeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // slide out positioning handles if touch is inside handle container
+        if let touch = touches.first {
+            if let touchView = touch.view {
+                if textPositionHandleContainer == touchView || textPositionHandleContainer.subviews.contains(touchView) {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        [weak self] in
+                        self?.leftTextPositionHandleConstraint.constant = -12
+                        self?.rightTextPositionHandleConstraint.constant = -12
+                        self?.view.layoutIfNeeded()
+                    })
+                }
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // reposition handle and text to touch position
+        if let touch = touches.first {
+            if let touchView = touch.view {
+                if textPositionHandleContainer == touchView || textPositionHandleContainer.subviews.contains(touchView) {
+                    let position = ceil(touch.location(in: view).y)
+                    let padding: CGFloat = 32.0
+    
+                    if (position > view.layoutMargins.top + padding) && (position < view.center.y - topTextField.frame.height) {
+                        textPositionHandleContainer.center.y = position
+                        topTextField.center.y = position
+                        bottomTextField.center.y = view.frame.height - topTextField.center.y + 5
+                    }
+                }
+            }
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // slide in positioning handles
+        UIView.animate(withDuration: 0.2, animations: {
+            [weak self] in
+            self?.leftTextPositionHandleConstraint.constant = 0
+            self?.rightTextPositionHandleConstraint.constant = 0
+            self?.view.layoutIfNeeded()
+        })
+        
+        // update constraints
+        topTextConstraint.constant = topTextField.frame.minY - view.layoutMargins.top
+        bottomTextConstraint.constant = view.frame.height - bottomTextField.frame.maxY - view.layoutMargins.bottom
     }
 }
 
@@ -282,6 +386,95 @@ extension EditMemeViewController {
     struct PlaceholderText {
         static let bottom: String = "BOTTOM"
         static let top: String = "TOP"
+    }
+}
+
+// MARK: - Editing Tools
+extension EditMemeViewController {
+    /// Set the font for both textFields.
+    func chooseFont(_ font: UITextField.Font) {
+        bottomTextField.setFont(font)
+        topTextField.setFont(font)
+    }
+    
+    /**
+     Reset the font being used to the default.
+     - parameter position: Resets the position of the textFields if set to true.
+     */
+    func resetText(withPosition position: Bool = false) {
+        bottomTextField.setFont(.impact)
+        bottomTextField.text = PlaceholderText.bottom
+        
+        topTextField.setFont(.impact)
+        topTextField.text = PlaceholderText.top
+        
+        if position {
+            resetTextPositions()
+        }
+    }
+    
+    /**
+     Reset the position of the textFields.
+     - parameter position: Resets the position of the textFields to the previous position if set to true.
+     */
+    func resetTextPositions(toPrevious position: Bool = false) {
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            if position {
+                self?.bottomTextConstraint.constant = (self?.previousTextPositions.bottom)!
+                self?.topTextConstraint.constant = (self?.previousTextPositions.top)!
+            } else {
+                self?.bottomTextConstraint.constant = InitialTextPositions.bottom
+                self?.topTextConstraint.constant = InitialTextPositions.top
+            }
+            self?.view.layoutIfNeeded()
+        })
+    }
+    
+    /// Toggle the edit tool pane on/off.
+    func toggleEditingToolsPane() {
+        if editingToolPane.isHidden {
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.editingToolPane.isHidden = false
+                self?.editingToolPane.alpha = 1.0
+                self?.editingToolVerticalConstraint.constant = 0
+                self?.view.layoutIfNeeded()
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.editingToolPane.isHidden = false
+                self?.editingToolPane.alpha = 0.0
+                self?.editingToolVerticalConstraint.constant = 32
+                self?.view.layoutIfNeeded()
+                }, completion: { [weak self] completed in
+                    self?.editingToolPane.isHidden = true
+            })
+        }
+    }
+    
+    /// Toggle the text position tool on/off.
+    func toggleTextPositionTool() {
+        bottomTextField.isEnabled = !bottomTextField.isEnabled
+        topTextField.isEnabled = !topTextField.isEnabled
+        textPositionToolPane.isHidden = !textPositionToolPane.isHidden
+        
+        // animate positioning handles and show/hide container
+        if textPositionHandleContainer.isHidden {
+            self.textPositionHandleContainer.isHidden = false
+            
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.leftTextPositionHandleConstraint.constant = 0
+                self?.rightTextPositionHandleConstraint.constant = 0
+                self?.view.layoutIfNeeded()
+            })
+        } else {
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                self?.leftTextPositionHandleConstraint.constant = -36
+                self?.rightTextPositionHandleConstraint.constant = -36
+                self?.view.layoutIfNeeded()
+                }, completion: { [weak self] completed in
+                    self?.textPositionHandleContainer.isHidden = true
+            })
+        }
     }
 }
 

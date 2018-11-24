@@ -37,4 +37,20 @@ extension UITextField {
         }
         return false
     }
+    
+    /**
+     Sets the font and appearance attributes of the *UITextField*.
+     - parameter font: The font to be used.
+     */
+    func setFont(_ font: Font) {
+        let textAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont(name: font.rawValue, size: 40)!,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.strokeColor: UIColor.black,
+            NSAttributedString.Key.strokeWidth: -5
+        ]
+        
+        self.defaultTextAttributes = textAttributes
+        self.textAlignment = .center
+    }
 }
